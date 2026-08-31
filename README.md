@@ -27,15 +27,28 @@ Open on your iPhone: `http://<your-computer-ip>:3000`
 2. Tap Share → **Add to Home Screen**
 3. Use it like a native app
 
-## Optional: Enable OpenAI coach
+## Deploy to GitHub Pages
 
-Create `.env.local`:
+1. Create a new GitHub repo (e.g. `fitpush`)
+2. Push this project:
 
+```bash
+git remote add origin https://github.com/YOUR_USERNAME/fitpush.git
+git branch -M main
+git push -u origin main
 ```
-OPENAI_API_KEY=sk-...
-```
 
-Without this, the built-in rule-based coach still pushes you after every meal.
+3. In GitHub → **Settings → Pages → Build and deployment**:
+   - Source: **GitHub Actions**
+4. The workflow deploys automatically on push to `main`
+5. Your app will be live at: `https://YOUR_USERNAME.github.io/fitpush/`
+
+> If your repo name isn't `fitpush`, the app auto-detects it from `GITHUB_REPOSITORY`.
+
+### Add to iPhone from GitHub Pages
+
+1. Open `https://YOUR_USERNAME.github.io/fitpush/` in Safari
+2. Share → **Add to Home Screen**
 
 ## Tech
 
