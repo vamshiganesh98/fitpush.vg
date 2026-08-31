@@ -27,27 +27,38 @@ Open on your iPhone: `http://<your-computer-ip>:3000`
 2. Tap Share → **Add to Home Screen**
 3. Use it like a native app
 
-## Deploy to GitHub Pages
+## Deploy to GitHub Pages (fitpush.vg)
 
-1. Create a new GitHub repo (e.g. `fitpush`)
-2. Push this project:
+Repo: **https://github.com/fitpush.vg/fitpush**
+
+### Push code
 
 ```bash
-git remote add origin https://github.com/YOUR_USERNAME/fitpush.git
+cd fitpush
+git remote add origin https://github.com/fitpush.vg/fitpush.git
 git branch -M main
 git push -u origin main
 ```
 
-3. In GitHub → **Settings → Pages → Build and deployment**:
-   - Source: **GitHub Actions**
-4. The workflow deploys automatically on push to `main`
-5. Your app will be live at: `https://YOUR_USERNAME.github.io/fitpush/`
+### Enable GitHub Pages
 
-> If your repo name isn't `fitpush`, the app auto-detects it from `GITHUB_REPOSITORY`.
+1. GitHub → **fitpush.vg/fitpush** → **Settings** → **Pages**
+2. Source: **GitHub Actions**
+3. Wait for the deploy workflow to finish (green check on Actions tab)
 
-### Add to iPhone from GitHub Pages
+### Custom domain
 
-1. Open `https://YOUR_USERNAME.github.io/fitpush/` in Safari
+The app is configured for **https://fitpush.vg**
+
+1. In **Pages** settings, set custom domain to `fitpush.vg`
+2. At your domain registrar, add DNS records:
+   - `A` records → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+   - OR `CNAME` for `www` → `fitpush.vg.github.io` (if using www)
+3. Enable **Enforce HTTPS** once DNS propagates
+
+### iPhone
+
+1. Open **https://fitpush.vg** in Safari
 2. Share → **Add to Home Screen**
 
 ## Tech
