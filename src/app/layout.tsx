@@ -12,10 +12,19 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const basePath =
+  process.env.GITHUB_PAGES === "true"
+    ? `/${process.env.GITHUB_REPOSITORY?.split("/")[1] ?? "fitpush.vg"}`
+    : "";
+
 export const metadata: Metadata = {
   title: "FitPush — AI Fitness Coach",
   description: "Track South Indian diet, workouts, and get pushed to hit your recomposition goals.",
-  manifest: "/manifest.json",
+  metadataBase: new URL(
+    process.env.GITHUB_PAGES === "true"
+      ? `https://vamshiganesh98.github.io${basePath}`
+      : "http://localhost:3000"
+  ),
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
@@ -38,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        <link rel="apple-touch-icon" href="/icon.svg" />
+        <link rel="apple-touch-icon" href={`${basePath}/icon.svg`} />
       </head>
       <body className="min-h-full flex flex-col bg-zinc-950 text-white">{children}</body>
     </html>
