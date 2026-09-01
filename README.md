@@ -29,20 +29,20 @@ Open on your iPhone: `http://<your-computer-ip>:3000`
 
 ## Deploy to GitHub Pages (fitpush.vg)
 
-Repo: **https://github.com/fitpush.vg/fitpush**
+Repo: **https://github.com/vamshiganesh98/fitpush.vg**
 
 ### Push code
 
 ```bash
 cd fitpush
-git remote add origin https://github.com/fitpush.vg/fitpush.git
+git remote add origin https://github.com/vamshiganesh98/fitpush.vg.git
 git branch -M main
 git push -u origin main
 ```
 
 ### Enable GitHub Pages
 
-1. GitHub → **fitpush.vg/fitpush** → **Settings** → **Pages**
+1. GitHub → **vamshiganesh98/fitpush.vg** → **Settings** → **Pages**
 2. Source: **GitHub Actions**
 3. Wait for the deploy workflow to finish (green check on Actions tab)
 
