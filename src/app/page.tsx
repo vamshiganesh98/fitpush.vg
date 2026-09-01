@@ -1,16 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { AppProvider } from "@/lib/context";
+import { AppProvider, useApp } from "@/lib/context";
 import BottomNav, { Tab } from "@/components/BottomNav";
 import Dashboard from "@/components/Dashboard";
 import MealLogger from "@/components/MealLogger";
 import WorkoutLogger from "@/components/WorkoutLogger";
 import WeeklyCheckIn from "@/components/WeeklyCheckIn";
 import ProfileView from "@/components/ProfileView";
+import Onboarding from "@/components/Onboarding";
 
 function AppShell() {
+  const { state } = useApp();
   const [tab, setTab] = useState<Tab>("home");
+
+  if (!state.onboardingCompleted || !state.profile) {
+    return <OnboardingGate />;
+  }
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white">
@@ -24,6 +30,11 @@ function AppShell() {
       <BottomNav active={tab} onChange={setTab} />
     </div>
   );
+}
+
+function OnboardingGate() {
+  const { state, completeOnboarding } = useApp();
+  return <Onboarding onComplete={completeOnboarding} initial={state.profile} />;
 }
 
 export default function Home() {

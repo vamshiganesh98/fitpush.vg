@@ -9,14 +9,14 @@ import ProgressBar from "./ProgressBar";
 
 export default function Dashboard() {
   const { state } = useApp();
+  const profile = state.profile!;
   const totals = getTodayTotals(state.meals);
   const todayMeals = getTodayMeals(state.meals);
   const todayWorkout = getTodayWorkout(state.workouts);
-  const { profile } = state;
 
   const dayOfWeek = new Date().getDay();
   const todayPlan = WORKOUT_SCHEDULE[dayOfWeek];
-  const dailyCoach = getDailyCoachSummary(state.profile, state.meals, state.workouts, todayStr());
+  const dailyCoach = getDailyCoachSummary(profile, state.meals, state.workouts, todayStr());
   const posture = getPostureReminder();
 
   const proteinPct = Math.round((totals.protein / profile.targets.protein) * 100);

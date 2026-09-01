@@ -8,15 +8,16 @@ import CoachCard from "./CoachCard";
 
 export default function WeeklyCheckIn() {
   const { state, addCheckIn } = useApp();
+  const profile = state.profile!;
   const latest = getLatestCheckIn(state.checkIns);
-  const [weight, setWeight] = useState(state.profile.weightKg.toString());
+  const [weight, setWeight] = useState(profile.weightKg.toString());
   const [waist, setWaist] = useState("");
   const [bodyFat, setBodyFat] = useState("");
   const [postureNotes, setPostureNotes] = useState("");
   const [feedback, setFeedback] = useState<string | null>(null);
   const [feedbackTone, setFeedbackTone] = useState<"praise" | "warning" | "neutral">("neutral");
 
-  const bmi = weight ? (Number(weight) / Math.pow(state.profile.heightCm / 100, 2)).toFixed(1) : "—";
+  const bmi = weight ? (Number(weight) / Math.pow(profile.heightCm / 100, 2)).toFixed(1) : "—";
 
   const submit = () => {
     if (!weight || !waist) return;
@@ -31,7 +32,7 @@ export default function WeeklyCheckIn() {
       createdAt: new Date().toISOString(),
     };
 
-    const coach = getWeeklyCoachFeedback(checkIn, latest, state.profile);
+    const coach = getWeeklyCoachFeedback(checkIn, latest, profile);
     addCheckIn({ ...checkIn, coachFeedback: coach.message });
     setFeedback(coach.message);
     setFeedbackTone(coach.tone);
@@ -123,13 +124,13 @@ export default function WeeklyCheckIn() {
       <div className="rounded-2xl border border-violet-500/20 bg-violet-500/5 p-4">
         <h2 className="mb-2 font-semibold text-violet-400">Muscle goal tracker</h2>
         <p className="text-sm text-zinc-300">
-          Current: ~{state.profile.muscleMassKg} kg → Goal: {state.profile.muscleGoalKg} kg
+          Current: ~{profile.muscleMassKg} kg → Goal: {profile.muscleGoalKg} kg
         </p>
         <div className="mt-2 h-2 rounded-full bg-zinc-800">
           <div
             className="h-full rounded-full bg-violet-500"
             style={{
-              width: `${Math.min(100, (state.profile.muscleMassKg / state.profile.muscleGoalKg) * 100)}%`,
+              width: `${Math.min(100, (profile.muscleMassKg / profile.muscleGoalKg) * 100)}%`,
             }}
           />
         </div>

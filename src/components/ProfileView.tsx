@@ -1,21 +1,41 @@
 "use client";
 
+import { useState } from "react";
 import { useApp } from "@/lib/context";
-import { WORKOUT_SCHEDULE } from "@/lib/profile";
+import { WORKOUT_SCHEDULE, getDietLabel } from "@/lib/profile";
+import Onboarding from "./Onboarding";
 
 export default function ProfileView() {
-  const { state } = useApp();
-  const { profile } = state;
+  const { state, completeOnboarding, resetApp } = useApp();
+  const profile = state.profile!;
+  const [editing, setEditing] = useState(false);
+
+  if (editing) {
+    return (
+      <Onboarding
+        initial={profile}
+        onCancel={() => setEditing(false)}
+        onComplete={(updated) => {
+          completeOnboarding(updated);
+          setEditing(false);
+        }}
+      />
+    );
+  }
 
   return (
     <div className="space-y-5 pb-4">
       <header>
         <h1 className="text-2xl font-bold text-white">Your profile</h1>
-        <p className="text-sm text-zinc-400">Personalized for your goals</p>
+        <p className="text-sm text-zinc-400">Saved on this device only</p>
       </header>
 
       <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4 space-y-3">
         <div className="grid grid-cols-2 gap-3 text-sm">
+          <div>
+            <p className="text-zinc-500">Name</p>
+            <p className="font-semibold text-white">{profile.name}</p>
+          </div>
           <div>
             <p className="text-zinc-500">Age</p>
             <p className="font-semibold text-white">{profile.age}</p>
@@ -30,7 +50,7 @@ export default function ProfileView() {
           </div>
           <div>
             <p className="text-zinc-500">Diet</p>
-            <p className="font-semibold text-white">Vegetarian</p>
+            <p className="font-semibold text-white">{getDietLabel(profile)}</p>
           </div>
         </div>
       </div>
@@ -45,13 +65,21 @@ export default function ProfileView() {
       </div>
 
       <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4">
-        <h2 className="mb-3 font-semibold text-white">Diet rules</h2>
+        <h2 className="mb-3 font-semibold text-white">Your goals</h2>
+        <ul className="space-y-1 text-sm text-zinc-300">
+          {profile.longTermGoals.map((g) => (
+            <li key={g}>• {g}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4">
+        <h2 className="mb-3 font-semibold text-white">Diet preferences</h2>
         <ul className="space-y-2 text-sm text-zinc-300">
-          <li>✓ Paneer & curd for protein at home</li>
-          <li>✗ No eggs or non-veg at home</li>
-          <li>✓ Eggs optional at office (Tue–Thu)</li>
-          <li>✓ Post-workout whey within 1 hour</li>
-          <li>✓ Breakfast: carb + protein always</li>
+          {profile.vegetarian && <li>✓ Vegetarian</li>}
+          {profile.paneerOk && <li>✓ Paneer / dairy ok</li>}
+          {!profile.eggsAtHome && profile.vegetarian && <li>✗ No eggs at home</li>}
+          {profile.eggsAtHome && <li>✓ Eggs at home</li>}
         </ul>
       </div>
 
@@ -87,6 +115,24 @@ export default function ProfileView() {
           </div>
         </div>
       </div>
+
+      <button
+        onClick={() => setEditing(true)}
+        className="w-full rounded-2xl border border-zinc-700 py-4 font-semibold text-white"
+      >
+        Edit profile
+      </button>
+
+      <button
+        onClick={() => {
+          if (confirm("Reset everything? Your profile, meals, and workouts will be deleted from this browser.")) {
+            resetApp();
+          }
+        }}
+        className="w-full rounded-2xl border border-red-500/30 py-4 text-sm font-medium text-red-400"
+      >
+        Reset all data on this device
+      </button>
     </div>
   );
 }

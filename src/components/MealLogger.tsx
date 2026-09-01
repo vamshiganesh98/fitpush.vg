@@ -21,6 +21,7 @@ const CATEGORIES = [
 
 export default function MealLogger() {
   const { state, addMeal } = useApp();
+  const profile = state.profile!;
   const [mealType, setMealType] = useState<MealType>("breakfast");
   const [selected, setSelected] = useState<string[]>([]);
   const [feedback, setFeedback] = useState<string | null>(null);
@@ -61,7 +62,7 @@ export default function MealLogger() {
       createdAt: new Date().toISOString(),
     };
 
-    const coach = getMealCoachFeedback(draft, state.profile, todayMeals);
+    const coach = getMealCoachFeedback(draft, profile, todayMeals);
     const meal = { ...draft, coachFeedback: coach.message };
 
     addMeal(meal);

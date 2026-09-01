@@ -1,4 +1,5 @@
 import { MealEntry, MealType, UserProfile, WorkoutEntry, WeeklyCheckIn } from "./types";
+import { getProteinHint } from "./targets";
 
 function todayStr() {
   return new Date().toISOString().split("T")[0];
@@ -30,9 +31,10 @@ export function getMealCoachFeedback(
   // Breakfast rules
   if (mealType === "breakfast") {
     if (carbBreakfast && !hasProteinAddon) {
+      const hint = getProteinHint(profile);
       return {
         tone: "warning",
-        message: `Weak breakfast. ~${Math.round(meal.totalProtein)}g protein — you need ${profile.targets.protein}g today. No eggs at home, so add paneer or curd. This is why progress stalls.`,
+        message: `Weak breakfast. ~${Math.round(meal.totalProtein)}g protein — you need ${profile.targets.protein}g today. ${hint.charAt(0).toUpperCase() + hint.slice(1)}. This is why progress stalls.`,
       };
     }
     if (meal.totalProtein >= 20) {
@@ -70,6 +72,7 @@ export function getMealCoachFeedback(
 
   // Dinner
   if (mealType === "dinner") {
+    const proteinHint = getProteinHint(profile);
     if (meal.totalProtein < 25) {
       return {
         tone: "warning",
@@ -79,7 +82,7 @@ export function getMealCoachFeedback(
     if (totalProteinToday < profile.targets.protein * 0.85) {
       return {
         tone: "warning",
-        message: `You're at ~${Math.round(totalProteinToday)}g protein today. Target is ${profile.targets.protein}g. ${profile.paneerOk ? "Add paneer, curd, or a shake before bed." : "Add a shake before bed."}`,
+        message: `You're at ~${Math.round(totalProteinToday)}g protein today. Target is ${profile.targets.protein}g. ${proteinHint.charAt(0).toUpperCase() + proteinHint.slice(1)} before bed.`,
       };
     }
     return {

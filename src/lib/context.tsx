@@ -1,12 +1,14 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { AppState, MealEntry, WorkoutEntry, WeeklyCheckIn } from "./types";
-import { loadState, saveState, addCoachMessage } from "./store";
+import { AppState, MealEntry, UserProfile, WorkoutEntry, WeeklyCheckIn } from "./types";
+import { loadState, saveState, addCoachMessage, clearAllData } from "./store";
 
 interface AppContextType {
   state: AppState;
   setState: (updater: AppState | ((prev: AppState) => AppState)) => void;
+  completeOnboarding: (profile: UserProfile) => void;
+  resetApp: () => void;
   addMeal: (meal: MealEntry) => void;
   addWorkout: (workout: WorkoutEntry) => void;
   addCheckIn: (checkIn: WeeklyCheckIn) => void;
@@ -32,11 +34,27 @@ export function AppProvider({ children }: { children: ReactNode }) {
       <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-white">
         <div className="text-center">
           <div className="mb-3 text-2xl font-bold">FitPush</div>
-          <div className="text-zinc-400">Loading your coach...</div>
+          <div className="text-zinc-400">Loading...</div>
         </div>
       </div>
     );
   }
+
+  const setStateSafe = (updater: AppState | ((prev: AppState) => AppState)) => {
+    setState((s) => {
+      if (!s) return s;
+      return typeof updater === "function" ? updater(s) : updater;
+    });
+  };
+
+  const completeOnboarding = (profile: UserProfile) => {
+    setState((s) => (s ? { ...s, profile, onboardingCompleted: true } : s));
+  };
+
+  const resetApp = () => {
+    clearAllData();
+    setState(loadState());
+  };
 
   const addMeal = (meal: MealEntry) => {
     setState((s) => {
@@ -94,15 +112,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setState((s) => (s ? { ...s, workouts: s.workouts.filter((w) => w.id !== id) } : s));
   };
 
-  const setStateSafe = (updater: AppState | ((prev: AppState) => AppState)) => {
-    setState((s) => {
-      if (!s) return s;
-      return typeof updater === "function" ? updater(s) : updater;
-    });
-  };
-
   return (
-    <AppContext.Provider value={{ state, setState: setStateSafe, addMeal, addWorkout, addCheckIn, deleteMeal, deleteWorkout }}>
+    <AppContext.Provider
+      value={{
+        state,
+        setState: setStateSafe,
+        completeOnboarding,
+        resetApp,
+        addMeal,
+        addWorkout,
+        addCheckIn,
+        deleteMeal,
+        deleteWorkout,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );
@@ -112,4 +135,9 @@ export function useApp() {
   const ctx = useContext(AppContext);
   if (!ctx) throw new Error("useApp must be used within AppProvider");
   return ctx;
+}
+
+export function useAppState() {
+  const { state } = useApp();
+  return state;
 }

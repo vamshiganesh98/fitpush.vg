@@ -89,7 +89,8 @@ export interface CoachMessage {
 }
 
 export interface AppState {
-  profile: UserProfile;
+  onboardingCompleted: boolean;
+  profile: UserProfile | null;
   meals: MealEntry[];
   workouts: WorkoutEntry[];
   checkIns: WeeklyCheckIn[];

@@ -1,32 +1,66 @@
 "use client";
 
-import { AppState, CoachMessage, MealEntry, WeeklyCheckIn, WorkoutEntry } from "./types";
-import { DEFAULT_PROFILE } from "./profile";
+import { AppState, CoachMessage, MealEntry, UserProfile, WeeklyCheckIn, WorkoutEntry } from "./types";
 
-const STORAGE_KEY = "fitpush-state-v1";
+const STORAGE_KEY = "fitpush-state-v2";
+const LEGACY_KEY = "fitpush-state-v1";
+
+function emptyState(): AppState {
+  return {
+    onboardingCompleted: false,
+    profile: null,
+    meals: [],
+    workouts: [],
+    checkIns: [],
+    coachMessages: [],
+  };
+}
 
 export function loadState(): AppState {
-  if (typeof window === "undefined") {
-    return { profile: DEFAULT_PROFILE, meals: [], workouts: [], checkIns: [], coachMessages: [] };
-  }
+  if (typeof window === "undefined") return emptyState();
+
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      return { profile: DEFAULT_PROFILE, meals: [], workouts: [], checkIns: [], coachMessages: [] };
+    if (raw) {
+      const parsed = JSON.parse(raw) as AppState;
+      return {
+        ...emptyState(),
+        ...parsed,
+        profile: parsed.profile ?? null,
+      };
     }
-    const parsed = JSON.parse(raw) as AppState;
-    return {
-      ...parsed,
-      profile: { ...DEFAULT_PROFILE, ...parsed.profile },
-    };
+
+    // Migrate legacy users who already had data saved
+    const legacy = localStorage.getItem(LEGACY_KEY);
+    if (legacy) {
+      const parsed = JSON.parse(legacy) as { profile?: UserProfile } & Omit<AppState, "onboardingCompleted" | "profile">;
+      if (parsed.profile?.name) {
+        return {
+          onboardingCompleted: true,
+          profile: parsed.profile,
+          meals: parsed.meals ?? [],
+          workouts: parsed.workouts ?? [],
+          checkIns: parsed.checkIns ?? [],
+          coachMessages: parsed.coachMessages ?? [],
+        };
+      }
+    }
   } catch {
-    return { profile: DEFAULT_PROFILE, meals: [], workouts: [], checkIns: [], coachMessages: [] };
+    // fall through
   }
+
+  return emptyState();
 }
 
 export function saveState(state: AppState) {
   if (typeof window === "undefined") return;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+export function clearAllData() {
+  if (typeof window === "undefined") return;
+  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(LEGACY_KEY);
 }
 
 export function todayStr() {

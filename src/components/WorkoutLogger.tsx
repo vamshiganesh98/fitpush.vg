@@ -10,6 +10,7 @@ import CoachCard from "./CoachCard";
 
 export default function WorkoutLogger() {
   const { state, addWorkout } = useApp();
+  const profile = state.profile!;
   const dayOfWeek = new Date().getDay();
   const defaultType = WORKOUT_SCHEDULE[dayOfWeek] || "Custom";
   const [workoutType, setWorkoutType] = useState(defaultType);
@@ -53,7 +54,7 @@ export default function WorkoutLogger() {
   const saveWorkout = () => {
     const coach = getWorkoutCoachFeedback(
       { id: "", date: todayStr(), type: workoutType, exercises, createdAt: "" },
-      state.profile
+      profile
     );
 
     const workout = {
