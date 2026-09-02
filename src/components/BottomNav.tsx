@@ -1,6 +1,6 @@
 "use client";
 
-type Tab = "home" | "meals" | "workout" | "weekly" | "profile";
+type Tab = "home" | "meals" | "workout" | "history" | "profile";
 
 interface Props {
   active: Tab;
@@ -11,7 +11,7 @@ const tabs: { id: Tab; label: string; icon: string }[] = [
   { id: "home", label: "Home", icon: "🏠" },
   { id: "meals", label: "Meals", icon: "🍽️" },
   { id: "workout", label: "Gym", icon: "💪" },
-  { id: "weekly", label: "Weekly", icon: "📊" },
+  { id: "history", label: "History", icon: "📅" },
   { id: "profile", label: "You", icon: "👤" },
 ];
 

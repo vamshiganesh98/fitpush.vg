@@ -116,6 +116,21 @@ export default function ProfileView() {
         </div>
       </div>
 
+      <div className="rounded-2xl border border-blue-500/20 bg-blue-500/5 p-4">
+        <h2 className="mb-2 font-semibold text-blue-400">Apple Health</h2>
+        <p className="text-sm text-zinc-300 leading-relaxed">
+          This is a web app — it <strong>cannot read Apple Health directly</strong> from Safari. HealthKit only works in native iOS apps.
+        </p>
+        <ul className="mt-3 space-y-2 text-sm text-zinc-400">
+          <li>✓ Log weight & waist manually in <strong>History → Weekly check-in</strong></li>
+          <li>✓ Log workouts & meals yourself (with AI autofill)</li>
+          <li>✗ Auto-sync steps, HR, sleep from Apple Watch — needs a native iOS app</li>
+        </ul>
+        <p className="mt-3 text-xs text-zinc-500">
+          If you want Apple Health sync later, we&apos;d need to build a native iPhone app with HealthKit. For now, log what matters here.
+        </p>
+      </div>
+
       <button
         onClick={() => setEditing(true)}
         className="w-full rounded-2xl border border-zinc-700 py-4 font-semibold text-white"

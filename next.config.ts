@@ -5,13 +5,12 @@ const repoName = process.env.GITHUB_REPOSITORY?.split("/")[1] ?? "fitpush.vg";
 const basePath = isGithubPages ? `/${repoName}` : "";
 
 const nextConfig: NextConfig = {
-  output: "export",
+  // API routes need a server — static export only for GitHub Pages
+  ...(isGithubPages ? { output: "export" as const } : {}),
   basePath,
   assetPrefix: basePath ? `${basePath}/` : undefined,
   trailingSlash: true,
-  images: {
-    unoptimized: true,
-  },
+  images: { unoptimized: true },
 };
 
 export default nextConfig;

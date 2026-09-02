@@ -6,7 +6,7 @@ import BottomNav, { Tab } from "@/components/BottomNav";
 import Dashboard from "@/components/Dashboard";
 import MealLogger from "@/components/MealLogger";
 import WorkoutLogger from "@/components/WorkoutLogger";
-import WeeklyCheckIn from "@/components/WeeklyCheckIn";
+import HistoryView from "@/components/HistoryView";
 import ProfileView from "@/components/ProfileView";
 import Onboarding from "@/components/Onboarding";
 
@@ -24,7 +24,7 @@ function AppShell() {
         {tab === "home" && <Dashboard />}
         {tab === "meals" && <MealLogger />}
         {tab === "workout" && <WorkoutLogger />}
-        {tab === "weekly" && <WeeklyCheckIn />}
+        {tab === "history" && <HistoryView />}
         {tab === "profile" && <ProfileView />}
       </main>
       <BottomNav active={tab} onChange={setTab} />
