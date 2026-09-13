@@ -77,6 +77,8 @@ export interface UserProfile {
   officeDays: number[];
   targets: DailyTargets;
   longTermGoals: string[];
+  /** User's own Gemini key (free tier) — stored only on this device */
+  geminiApiKey?: string;
 }
 
 export interface CoachMessage {

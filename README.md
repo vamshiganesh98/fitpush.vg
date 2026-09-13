@@ -1,59 +1,37 @@
-# FitPush — AI Fitness & Diet Tracker
+# FitPush — Diet + Gym + AI (one free app)
 
-A mobile-first PWA built for your recomposition goals: lose love handles, gain muscle, improve posture.
+**One app** for South Indian diet, gym logging, and AI coaching. No subscription.
 
-## Features
+| Tab | What |
+|-----|------|
+| **Home** | Macros, daily verdict, quick link to AI plan |
+| **Diet** | Type meals → AI autofill → log manually |
+| **Gym** | Type exercises → AI fills weights from history |
+| **AI** | Daily meal + workout plan, chat coach |
+| **You** | Profile, Gemini key, history, backup |
 
-- **Meal logging** with South Indian food presets (idli, dosa, chapati, pongal, upma, rice, dal, sambar, paneer, curd, protein shakes)
-- **Post-meal AI coach** — blunt feedback after every meal (rule-based; optional OpenAI)
-- **Workout tracker** — sets, reps, weight for your Mon–Fri split + badminton
-- **Weekly check-in** — weight, waist, body fat, posture notes with trend tracking
-- **Daily dashboard** — protein/calorie progress, coach verdict, posture reminders
-- **Your profile pre-configured** — vegetarian, no eggs at home, paneer yes, 145g protein target
+## Free AI
 
-## Run locally
+1. Open [Google AI Studio](https://aistudio.google.com/apikey) → Create API key (free tier)
+2. **You** tab → paste Gemini key
+3. **AI** tab → Plan my day / ask questions
 
-```bash
-cd fitpush
-npm install
-npm run dev
-```
-
-Open on your iPhone: `http://<your-computer-ip>:3000`
-
-### Add to iPhone Home Screen
-
-1. Open the app in Safari
-2. Tap Share → **Add to Home Screen**
-3. Use it like a native app
+Without a key, local coach + autofill still work.
 
 ## Live app
 
 **https://vamshiganesh98.github.io/fitpush.vg/**
 
-### Workouts + Apple Health → [openGym](https://github.com/DuarteSantos8/openGym)
+Add to iPhone Home Screen from Safari.
 
-See **[opengym-integration/README.md](./opengym-integration/README.md)** — import your weekly plan, self-host with Docker, enable **Gemini AI coach** (free API tier).
+## Backup
 
-Repo: **https://github.com/vamshiganesh98/fitpush.vg**
+**You → Download backup** — save JSON to Files/iCloud. Restore on a new phone with **Restore from backup**.
 
-Deploys automatically on every push to `main` via GitHub Actions.
+## Deploy with server AI (optional)
 
-### iPhone
-
-1. Open **https://vamshiganesh98.github.io/fitpush.vg/** in Safari
-2. Share → **Add to Home Screen**
+Connect repo to [Vercel](https://vercel.com) (free) and set `GEMINI_API_KEY` — then AI works without pasting a key on each device.
 
 ## Tech
 
-- Next.js 16 + TypeScript + Tailwind
-- Client-side storage (localStorage) — your data stays on your device
-- PWA manifest for iPhone home screen install
-
-## Your daily workflow
-
-1. **Log breakfast** → get coach feedback (add paneer/curd if missing)
-2. **Log lunch** → rice capped at 180g warning
-3. **Log workout** → track weights for progressive overload
-4. **Log dinner + evening snacks**
-5. **Sunday** → weekly waist/weight/body fat check-in
+Next.js · localStorage · Gemini API · PWA

@@ -18,8 +18,8 @@ const basePath =
     : "";
 
 export const metadata: Metadata = {
-  title: "FitPush — AI Fitness Coach",
-  description: "Track South Indian diet, workouts, and get pushed to hit your recomposition goals.",
+  title: "FitPush — Diet, Gym & AI Coach",
+  description: "Free all-in-one fitness app: South Indian diet, workouts, AI coach. Your data on your device.",
   metadataBase: new URL(
     process.env.GITHUB_PAGES === "true"
       ? `https://vamshiganesh98.github.io${basePath}`

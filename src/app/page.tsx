@@ -6,7 +6,7 @@ import BottomNav, { Tab } from "@/components/BottomNav";
 import Dashboard from "@/components/Dashboard";
 import MealLogger from "@/components/MealLogger";
 import WorkoutLogger from "@/components/WorkoutLogger";
-import HistoryView from "@/components/HistoryView";
+import CoachAI from "@/components/CoachAI";
 import ProfileView from "@/components/ProfileView";
 import Onboarding from "@/components/Onboarding";
 
@@ -21,10 +21,10 @@ function AppShell() {
   return (
     <div className="min-h-screen bg-zinc-950 text-white">
       <main className="mx-auto max-w-lg px-4 pt-6 pb-28">
-        {tab === "home" && <Dashboard />}
+        {tab === "home" && <Dashboard onOpenCoach={() => setTab("coach")} />}
         {tab === "meals" && <MealLogger />}
         {tab === "workout" && <WorkoutLogger />}
-        {tab === "history" && <HistoryView />}
+        {tab === "coach" && <CoachAI />}
         {tab === "profile" && <ProfileView />}
       </main>
       <BottomNav active={tab} onChange={setTab} />

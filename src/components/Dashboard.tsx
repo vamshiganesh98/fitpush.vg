@@ -7,7 +7,7 @@ import { WORKOUT_SCHEDULE } from "@/lib/profile";
 import CoachCard from "./CoachCard";
 import ProgressBar from "./ProgressBar";
 
-export default function Dashboard() {
+export default function Dashboard({ onOpenCoach }: { onOpenCoach?: () => void }) {
   const { state } = useApp();
   const profile = state.profile!;
   const totals = getTodayTotals(state.meals);
@@ -24,7 +24,7 @@ export default function Dashboard() {
   return (
     <div className="space-y-5 pb-4">
       <header>
-        <p className="text-sm text-zinc-500">Today</p>
+        <p className="text-sm text-zinc-500">FitPush — diet + gym + AI</p>
         <h1 className="text-2xl font-bold text-white">
           Hey {profile.name} 👋
         </h1>
@@ -34,6 +34,16 @@ export default function Dashboard() {
       </header>
 
       <CoachCard message={dailyCoach.message} tone={dailyCoach.tone} title="Daily verdict" />
+
+      {onOpenCoach && (
+        <button
+          type="button"
+          onClick={onOpenCoach}
+          className="w-full rounded-2xl border border-violet-500/40 bg-violet-500/10 py-3 text-sm font-semibold text-violet-300"
+        >
+          ✨ AI: Plan my meals & workout for today
+        </button>
+      )}
 
       <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4 space-y-4">
         <h2 className="font-semibold text-white">Today&apos;s macros</h2>
