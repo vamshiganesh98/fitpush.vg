@@ -1,0 +1,72 @@
+{
+  "opengym_plan": 1,
+  "exported": "2026-09-13",
+  "name": "Vamshi — Mon–Fri split (cable-friendly)",
+  "week": {
+    "1": ["chest-triceps"],
+    "2": ["legs"],
+    "3": ["back-biceps"],
+    "4": ["shoulders"],
+    "5": ["arms"]
+  },
+  "routines": [
+    {
+      "id": "chest-triceps",
+      "name": "Chest + Triceps",
+      "emoji": "barbell",
+      "ex": [
+        { "id": "0314", "sets": 3, "reps": 10, "weight": 30 },
+        { "id": "0289", "sets": 3, "reps": 10, "weight": 0 },
+        { "id": "1262", "sets": 3, "reps": 12, "weight": 0 },
+        { "id": "0241", "sets": 3, "reps": 12, "weight": 0 },
+        { "id": "2405", "sets": 3, "reps": 12, "weight": 0 }
+      ]
+    },
+    {
+      "id": "legs",
+      "name": "Legs",
+      "emoji": "legs",
+      "ex": [
+        { "id": "1463", "sets": 4, "reps": 10, "weight": 80 },
+        { "id": "0585", "sets": 3, "reps": 12, "weight": 0 },
+        { "id": "3195", "sets": 3, "reps": 12, "weight": 0 },
+        { "id": "0605", "sets": 3, "reps": 15, "weight": 0 }
+      ]
+    },
+    {
+      "id": "back-biceps",
+      "name": "Back + Biceps",
+      "emoji": "pullup",
+      "ex": [
+        { "id": "2330", "sets": 3, "reps": 10, "weight": 0 },
+        { "id": "0861", "sets": 3, "reps": 10, "weight": 0 },
+        { "id": "0499", "sets": 3, "reps": 12, "weight": 0 },
+        { "id": "0241", "sets": 3, "reps": 12, "weight": 0 },
+        { "id": "1669", "sets": 3, "reps": 10, "weight": 0 }
+      ]
+    },
+    {
+      "id": "shoulders",
+      "name": "Shoulders",
+      "emoji": "figureStrength",
+      "ex": [
+        { "id": "0405", "sets": 3, "reps": 10, "weight": 0 },
+        { "id": "0178", "sets": 3, "reps": 12, "weight": 0 },
+        { "id": "0192", "sets": 3, "reps": 12, "weight": 0 },
+        { "id": "0861", "sets": 3, "reps": 12, "weight": 0 }
+      ]
+    },
+    {
+      "id": "arms",
+      "name": "Arms",
+      "emoji": "barbell",
+      "ex": [
+        { "id": "0289", "sets": 3, "reps": 10, "weight": 0 },
+        { "id": "0241", "sets": 3, "reps": 12, "weight": 0 },
+        { "id": "1669", "sets": 3, "reps": 10, "weight": 0 },
+        { "id": "2405", "sets": 3, "reps": 12, "weight": 0 }
+      ]
+    }
+  ],
+  "customEx": []
+}

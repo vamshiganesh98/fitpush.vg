@@ -116,19 +116,33 @@ export default function ProfileView() {
         </div>
       </div>
 
+      <div className="rounded-2xl border border-violet-500/20 bg-violet-500/5 p-4">
+        <h2 className="mb-2 font-semibold text-violet-400">Workouts — openGym</h2>
+        <p className="text-sm text-zinc-300 leading-relaxed">
+          For serious gym tracking, AI plans (Gemini/OpenAI), progression, and data on{" "}
+          <strong>your server</strong>, use{" "}
+          <a
+            href="https://opengym.duarte-santos.ch/demo/"
+            className="text-violet-300 underline"
+            target="_blank"
+            rel="noreferrer"
+          >
+            openGym
+          </a>
+          . Import your split: see <code className="text-xs">opengym-integration/</code> in this repo.
+        </p>
+      </div>
+
       <div className="rounded-2xl border border-blue-500/20 bg-blue-500/5 p-4">
         <h2 className="mb-2 font-semibold text-blue-400">Apple Health</h2>
         <p className="text-sm text-zinc-300 leading-relaxed">
-          This is a web app — it <strong>cannot read Apple Health directly</strong> from Safari. HealthKit only works in native iOS apps.
+          FitPush (web) <strong>cannot read Apple Health</strong> from Safari — HealthKit needs a native app.
         </p>
         <ul className="mt-3 space-y-2 text-sm text-zinc-400">
-          <li>✓ Log weight & waist manually in <strong>History → Weekly check-in</strong></li>
-          <li>✓ Log workouts & meals yourself (with AI autofill)</li>
-          <li>✗ Auto-sync steps, HR, sleep from Apple Watch — needs a native iOS app</li>
+          <li>✓ Log weight & waist in <strong>History → Weekly check-in</strong></li>
+          <li>✓ <strong>openGym</strong> can import body weight from an Apple Health export</li>
+          <li>✗ Live sync steps / HR / sleep from Apple Watch — not on web</li>
         </ul>
-        <p className="mt-3 text-xs text-zinc-500">
-          If you want Apple Health sync later, we&apos;d need to build a native iPhone app with HealthKit. For now, log what matters here.
-        </p>
       </div>
 
       <button

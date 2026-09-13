@@ -31,6 +31,10 @@ Open on your iPhone: `http://<your-computer-ip>:3000`
 
 **https://vamshiganesh98.github.io/fitpush.vg/**
 
+### Workouts + Apple Health → [openGym](https://github.com/DuarteSantos8/openGym)
+
+See **[opengym-integration/README.md](./opengym-integration/README.md)** — import your weekly plan, self-host with Docker, enable **Gemini AI coach** (free API tier).
+
 Repo: **https://github.com/vamshiganesh98/fitpush.vg**
 
 Deploys automatically on every push to `main` via GitHub Actions.
